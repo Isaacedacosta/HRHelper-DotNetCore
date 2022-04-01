@@ -37,6 +37,7 @@
     <ProjectReference Include="..\HRHelper.Application\HRHelper.Application.csproj" />
     <ProjectReference Include="..\HRHelper.Data\HRHelper.Data.csproj" />
     <ProjectReference Include="..\HRHelper.Domain\HRHelper.Domain.csproj" />
+    <ProjectReference Include="..\HRHelper.IoC\HRHelper.IoC.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
