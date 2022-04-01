@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using HRHelper.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using HRHelper.IoC;
+using HRHelper.Application.AutoMapper;
+using AutoMapper;
 
 namespace HRHelper
 {
@@ -28,6 +30,8 @@ namespace HRHelper
             services.AddDbContext<ExtendDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("HRHelper_Local")).EnableSensitiveDataLogging());
 
             NativeInjector.RegisterServices(services);
+
+            services.AddAutoMapper(typeof(AutoMapperSetup));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

@@ -15,15 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4) Infrastructure", "4) Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRHelper.Application", "HRHelper.Application\HRHelper.Application.csproj", "{2126C7E9-53A4-4A52-ADDB-6ADE1B9C4C87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRHelper.Domain", "HRHelper.Domain\HRHelper.Domain.csproj", "{E22B1459-E4D7-4879-AE1B-F882580C5CDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRHelper.Domain", "HRHelper.Domain\HRHelper.Domain.csproj", "{E22B1459-E4D7-4879-AE1B-F882580C5CDE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1) Data", "4.1) Data", "{FE0A4936-551C-4888-8809-40C390E712E5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2) CrossCutting", "4.2) CrossCutting", "{A55F6152-CB75-4CF8-AB14-8BE1483C2062}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRHelper.Data", "HRHelper.Data\HRHelper.Data.csproj", "{8353A67B-F5D9-4C2F-8B71-6B6EF0E73CFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRHelper.Data", "HRHelper.Data\HRHelper.Data.csproj", "{8353A67B-F5D9-4C2F-8B71-6B6EF0E73CFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRHelper.IoC", "HRHelper.IoC\HRHelper.IoC.csproj", "{B09DAEA1-55C6-458F-9E98-625D5A157609}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRHelper.IoC", "HRHelper.IoC\HRHelper.IoC.csproj", "{B09DAEA1-55C6-458F-9E98-625D5A157609}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
