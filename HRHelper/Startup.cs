@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using HRHelper.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRHelper
 {
@@ -21,6 +23,9 @@ namespace HRHelper
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<ExtendDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("HRHelper_Local")).EnableSensitiveDataLogging());
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
