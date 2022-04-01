@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HRHelper.Application\HRHelper.Application.csproj" />
+    <ProjectReference Include="..\HRHelper.Data\HRHelper.Data.csproj" />
   </ItemGroup>
 
 </Project>

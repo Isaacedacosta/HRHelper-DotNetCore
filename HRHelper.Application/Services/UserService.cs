@@ -1,4 +1,7 @@
 ﻿using HRHelper.Application.Interface;
+using HRHelper.Application.ViewModels;
+using HRHelper.Domain.Entities;
+using HRHelper.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +12,26 @@ namespace HRHelper.Application.Services
 {
     public class UserService : IUserService
     {
-        public void Test()
-        {
 
+        private readonly IUserRepository userRepository;
+
+        public UserService(IUserRepository userRepository)
+        {
+            this.userRepository = userRepository;
+        }
+
+
+        public List<UserViewModel> Get()
+        {
+            List<UserViewModel> _userViewModels = new List<UserViewModel>();
+
+            IEnumerable<User> _users = this.userRepository.GetAll();
+            foreach (User _user in _users)
+            {
+                _userViewModels.Add(new UserViewModel { Name = _user.Name, Email = _user.Email, Id = _user.Id });
+            }
+
+            return _userViewModels;
         }
     }
 }
