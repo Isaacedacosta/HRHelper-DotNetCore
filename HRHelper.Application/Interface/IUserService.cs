@@ -10,5 +10,7 @@ namespace HRHelper.Application.Interface
     public interface IUserService
     {
         List<UserViewModel> Get();
+
+        bool Post(UserViewModel userViewModel);
     }
 }

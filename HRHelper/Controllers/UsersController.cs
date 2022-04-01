@@ -1,4 +1,5 @@
 ﻿using HRHelper.Application.Interface;
+using HRHelper.Application.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,11 @@ namespace HRHelper.Controllers
             return Ok(this.userService.Get());
         }
 
+        [HttpPost]
+        public IActionResult Post(UserViewModel userViewModel)
+        {
+            return Ok(this.userService.Post(userViewModel));
+        }
 
     }
 }

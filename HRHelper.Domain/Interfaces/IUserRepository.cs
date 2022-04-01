@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HRHelper.Domain.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User>
     {
         IEnumerable<User> GetAll();
     }

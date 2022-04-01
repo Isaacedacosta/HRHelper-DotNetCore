@@ -33,5 +33,25 @@ namespace HRHelper.Application.Services
 
             return _userViewModels;
         }
+
+
+        public bool Post(UserViewModel userViewModel)
+        {
+            User _user = new User
+            {
+                Id = new Guid(),
+                Name = userViewModel.Name,
+                Email = userViewModel.Email,
+                DateCreated = DateTime.Now,
+                IsDeleted = false,
+                DateUpdated = null
+            };
+
+            this.userRepository.Create(_user);
+
+            return true;
+        }
+
+
     }
 }
