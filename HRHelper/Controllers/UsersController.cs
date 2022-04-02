@@ -1,12 +1,15 @@
 ﻿using HRHelper.Application.Interface;
 using HRHelper.Application.ViewModels;
+using HRHelper.Login.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace HRHelper.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService userService;
@@ -16,6 +19,8 @@ namespace HRHelper.Controllers
         {
             this.userService = userService;
         }
+
+        #region API/Users
 
         [HttpGet]
         public IActionResult Get()
@@ -29,7 +34,7 @@ namespace HRHelper.Controllers
             return Ok(this.userService.GetById(id));
         }
 
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public IActionResult Post(UserViewModel userViewModel)
         {
             return Ok(this.userService.Post(userViewModel));
@@ -41,10 +46,18 @@ namespace HRHelper.Controllers
             return Ok(this.userService.Update(userViewModel));
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        [HttpDelete]
+        public IActionResult Delete()
         {
-            return Ok(this.userService.Delete(id));
+            string _userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
+            return Ok(this.userService.Delete(_userId));
+        }
+        #endregion
+
+        [HttpPost("login"), AllowAnonymous]
+        public IActionResult Login(UserAuthenticateRequestViewModel userViewModel)
+        {
+            return Ok(this.userService.Login(userViewModel));
         }
 
     }

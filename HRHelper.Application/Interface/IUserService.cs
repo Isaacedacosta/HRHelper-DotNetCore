@@ -18,5 +18,7 @@ namespace HRHelper.Application.Interface
         bool Update(UserViewModel userViewModel);
 
         bool Delete(string id);
+
+        UserAuthenticateResponseViewModel Login(UserAuthenticateRequestViewModel user);
     }
 }

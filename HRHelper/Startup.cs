@@ -9,7 +9,11 @@ using HRHelper.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using HRHelper.IoC;
 using HRHelper.Application.AutoMapper;
+using HRHelper.Login.Models;
 using AutoMapper;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace HRHelper
 {
@@ -21,6 +25,7 @@ namespace HRHelper
         }
 
         public IConfiguration Configuration { get; }
+        public object Settings { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -32,6 +37,26 @@ namespace HRHelper
             NativeInjector.RegisterServices(services);
 
             services.AddAutoMapper(typeof(AutoMapperSetup));
+
+
+            var key = Encoding.ASCII.GetBytes(Config.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -62,6 +87,9 @@ namespace HRHelper
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

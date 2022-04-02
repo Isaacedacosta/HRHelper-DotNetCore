@@ -3,6 +3,7 @@ using HRHelper.Application.Interface;
 using HRHelper.Application.ViewModels;
 using HRHelper.Domain.Entities;
 using HRHelper.Domain.Interfaces;
+using HRHelper.Login.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,6 +104,21 @@ namespace HRHelper.Application.Services
 
             return this.userRepository.Delete(_user);
         }
+
+
+        #region Login
+        public UserAuthenticateResponseViewModel Login(UserAuthenticateRequestViewModel user)
+        {
+            User _user = this.userRepository.Find(x => !x.IsDeleted && x.Email.ToLower() == user.Email.ToLower());
+            if(_user == null)
+            {
+                throw new Exception("User not found!");
+            }
+
+            return new UserAuthenticateResponseViewModel(mapper.Map<UserViewModel>(_user), TokenService.GenerateToken(_user));
+
+        }
+        #endregion
 
     }
 }

@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HRHelper.Domain\HRHelper.Domain.csproj" />
+    <ProjectReference Include="..\HRHelper.Login\HRHelper.Login.csproj" />
   </ItemGroup>
 
 </Project>
