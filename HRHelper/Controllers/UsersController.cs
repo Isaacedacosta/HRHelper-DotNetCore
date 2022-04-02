@@ -23,10 +23,28 @@ namespace HRHelper.Controllers
             return Ok(this.userService.Get());
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetById(string id)
+        {
+            return Ok(this.userService.GetById(id));
+        }
+
         [HttpPost]
         public IActionResult Post(UserViewModel userViewModel)
         {
             return Ok(this.userService.Post(userViewModel));
+        }
+
+        [HttpPut]
+        public IActionResult Update(UserViewModel userViewModel)
+        {
+            return Ok(this.userService.Update(userViewModel));
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(string id)
+        {
+            return Ok(this.userService.Delete(id));
         }
 
     }

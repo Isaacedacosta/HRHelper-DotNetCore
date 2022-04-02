@@ -12,5 +12,11 @@ namespace HRHelper.Application.Interface
         List<UserViewModel> Get();
 
         bool Post(UserViewModel userViewModel);
+
+        UserViewModel GetById(string id);
+
+        bool Update(UserViewModel userViewModel);
+
+        bool Delete(string id);
     }
 }

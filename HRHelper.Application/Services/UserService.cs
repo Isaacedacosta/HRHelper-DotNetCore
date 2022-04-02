@@ -38,6 +38,21 @@ namespace HRHelper.Application.Services
             return _userViewModels;
         }
 
+        public UserViewModel GetById(string id)
+        {
+            if(!Guid.TryParse(id, out Guid userId))
+            {
+                throw new Exception("UserId is not valid!");
+            }
+
+            User _user = this.userRepository.Find(x => x.Id == userId && !x.IsDeleted);
+            if(_user == null)
+            {
+                throw new Exception("User not found!");
+            }
+
+            return mapper.Map<UserViewModel>(_user);
+        }
 
         public bool Post(UserViewModel userViewModel)
         {
@@ -58,6 +73,36 @@ namespace HRHelper.Application.Services
             return true;
         }
 
+        public bool Update(UserViewModel userViewModel)
+        {
+            User _user = this.userRepository.Find(x => x.Id == userViewModel.Id && !x.IsDeleted);
+            if (_user == null)
+            {
+                throw new Exception("User not found!");
+            }
+
+            _user = mapper.Map<User>(userViewModel);
+
+            this.userRepository.Update(_user);
+
+            return true;
+        }
+
+        public bool Delete(string id)
+        {
+            if (!Guid.TryParse(id, out Guid userId))
+            {
+                throw new Exception("UserId is not valid!");
+            }
+
+            User _user = this.userRepository.Find(x => x.Id == userId && !x.IsDeleted);
+            if (_user == null)
+            {
+                throw new Exception("User not found!");
+            }
+
+            return this.userRepository.Delete(_user);
+        }
 
     }
 }
