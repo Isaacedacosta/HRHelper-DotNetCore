@@ -9,7 +9,7 @@ using System.Security.Claims;
 namespace HRHelper.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController, Authorize]
+    [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly IUserService userService;
