@@ -38,11 +38,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\_data-services\users.data-service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HRHelper.Application\HRHelper.Application.csproj" />
     <ProjectReference Include="..\HRHelper.Data\HRHelper.Data.csproj" />
     <ProjectReference Include="..\HRHelper.Domain\HRHelper.Domain.csproj" />
     <ProjectReference Include="..\HRHelper.IoC\HRHelper.IoC.csproj" />
     <ProjectReference Include="..\HRHelper.Login\HRHelper.Login.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\_data-services\users.data-service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -9,7 +9,7 @@ using System.Security.Claims;
 namespace HRHelper.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController, Authorize]
+    [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly IUserService userService;
@@ -22,13 +22,13 @@ namespace HRHelper.Controllers
 
         #region API/Users
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public IActionResult Get()
         {
             return Ok(this.userService.Get());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), AllowAnonymous]
         public IActionResult GetById(string id)
         {
             return Ok(this.userService.GetById(id));
