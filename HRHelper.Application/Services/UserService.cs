@@ -7,6 +7,7 @@ using HRHelper.Login.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -67,6 +68,7 @@ namespace HRHelper.Application.Services
             //    DateUpdated = null
             //};
             User _user = mapper.Map<User>(userViewModel);
+            _user.Password = MyPasswordEncryption(_user.Password);
 
 
             this.userRepository.Create(_user);
@@ -81,8 +83,18 @@ namespace HRHelper.Application.Services
             {
                 throw new Exception("User not found!");
             }
+            else if(_user.Password == userViewModel.Password)
+            {
+                _user = mapper.Map<User>(userViewModel);
+            }
+            else
+            {
+                _user = mapper.Map<User>(userViewModel);
+                _user.Password = MyPasswordEncryption(_user.Password);
+            }
 
-            _user = mapper.Map<User>(userViewModel);
+            
+            
 
             this.userRepository.Update(_user);
 
@@ -109,7 +121,14 @@ namespace HRHelper.Application.Services
         #region Login
         public UserAuthenticateResponseViewModel Login(UserAuthenticateRequestViewModel user)
         {
-            User _user = this.userRepository.Find(x => !x.IsDeleted && x.Email.ToLower() == user.Email.ToLower());
+            if (user.Email == null || user.Password == null)
+            {
+                throw new Exception("Email and Password are required!");
+            }
+
+            user.Password = MyPasswordEncryption(user.Password);
+
+            User _user = this.userRepository.Find(x => !x.IsDeleted && x.Email.ToLower() == user.Email.ToLower() && x.Password.ToLower() == user.Password.ToLower());
             if(_user == null)
             {
                 throw new Exception("User not found!");
@@ -118,6 +137,23 @@ namespace HRHelper.Application.Services
             return new UserAuthenticateResponseViewModel(mapper.Map<UserViewModel>(_user), TokenService.GenerateToken(_user));
 
         }
+
+
+        private string MyPasswordEncryption(string password)
+        {
+            HashAlgorithm sha1 = new SHA1CryptoServiceProvider();
+            byte[] encryptedPassword = sha1.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+            StringBuilder sb = new StringBuilder();
+            foreach(var ch in encryptedPassword)
+            {
+                sb.Append(ch.ToString("X2"));
+            }
+
+
+            return sb.ToString();
+        }
+
         #endregion
 
     }

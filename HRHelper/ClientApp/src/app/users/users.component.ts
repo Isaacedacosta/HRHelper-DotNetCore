@@ -47,7 +47,7 @@ export class UsersComponent implements OnInit {
       if (data) {
         alert('User added to DB');
         this.user = {};
-        this.get();
+        this.logOff();
       } else {
         alert('Error');
       }
@@ -117,6 +117,7 @@ export class UsersComponent implements OnInit {
     this.userLogged= {};
     this.showList = true;
     this.isAuthenticated = false;
+    localStorage.removeItem('loginData');
   }
 
 
