@@ -46,11 +46,11 @@ namespace HRHelper.Controllers
             return Ok(this.userService.Update(userViewModel));
         }
 
-        [HttpDelete]
-        public IActionResult Delete()
+        [HttpDelete("{userId}")]
+        public IActionResult Delete(string userId)
         {
-            string _userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
-            return Ok(this.userService.Delete(_userId));
+            //string _userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
+            return Ok(this.userService.Delete(userId));
         }
         #endregion
 

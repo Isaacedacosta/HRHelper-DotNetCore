@@ -18,7 +18,8 @@
         <td>{{user.id}}</td>
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
-        <td><button class="btn btn-primary">Edit</button></td>
+        <td><button class="btn btn-primary" (click)="showUserDetails(user)">Edit</button>
+        <button class="btn btn-danger" (click)="deleteUser(user)">Delete</button></td>
 
       </tr>
     </tbody>
@@ -36,6 +37,7 @@
       <label for="exampleInputEmail1" class="form-label">Email address</label>
       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@email.com" [(ngModel)]="user.email" name="email">
     </div>
-    <button type="submit" class="btn btn-primary" (click)="post()">Add User</button>
+    <button type="submit" class="btn btn-primary" (click)="save()">Save User</button>
+    <button type="submit" class="btn btn-danger" (click)="get()">Back</button>
   </form>
 </div>

@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { User } from "oidc-client";
 
 @Injectable()
 export class UserDataService {
@@ -16,5 +17,12 @@ export class UserDataService {
     return this.http.post(this.module, data);
   }
 
+  put(data) {
+    return this.http.put(this.module, data);
+  }
+
+  delete(userId) {
+    return this.http.delete(this.module + "/" + userId);
+  }
 
 }
