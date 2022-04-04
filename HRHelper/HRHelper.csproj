@@ -32,12 +32,17 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\NewFolder\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\NewFolder\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\NewFolder\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\NewFolder\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\middleware\interceptor.module.ts" />
     <None Remove="ClientApp\src\app\_data-services\user.data-service.ts" />
   </ItemGroup>
 
@@ -50,6 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\middleware\interceptor.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_data-services\user.data-service.ts" />
   </ItemGroup>
 

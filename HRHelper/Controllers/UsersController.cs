@@ -9,7 +9,7 @@ using System.Security.Claims;
 namespace HRHelper.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService userService;
@@ -46,11 +46,11 @@ namespace HRHelper.Controllers
             return Ok(this.userService.Update(userViewModel));
         }
 
-        [HttpDelete("{userId}")]
-        public IActionResult Delete(string userId)
+        [HttpDelete]
+        public IActionResult Delete()
         {
-            //string _userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
-            return Ok(this.userService.Delete(userId));
+            string _userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
+            return Ok(this.userService.Delete(_userId));
         }
         #endregion
 

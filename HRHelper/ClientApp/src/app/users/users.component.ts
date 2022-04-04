@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Local } from 'protractor/built/driverProviders';
 import { UserDataService } from '../_data-services/user.data-service';
 
 @Component({
@@ -10,12 +11,15 @@ export class UsersComponent implements OnInit {
 
   users: any[] = [];
   user: any = {};
+  userLogin: any = {};
+  userLogged: any = {};
   showList: boolean = true;
+  isAuthenticated: boolean = false;
 
   constructor(private userDataService: UserDataService) { }
 
   ngOnInit() {
-    this.get();
+    
   }
 
   get() {
@@ -74,10 +78,12 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(user) {
-    this.userDataService.delete(user.id).subscribe(data => {
+    this.userDataService.delete().subscribe(data => {
       if (data) {
         alert('User deleted from DB');
         this.user = {};
+        this.userLogged = {};
+        this.isAuthenticated = false;
         this.get();
       } else {
         alert('Error');
@@ -85,6 +91,32 @@ export class UsersComponent implements OnInit {
     }, error => {
       alert('System Error');
     })
+  }
+
+
+  authenticate() {
+    this.userDataService.authenticate(this.userLogin).subscribe(data => {
+      localStorage.setItem('loginData', JSON.stringify(data));
+      this.setUserLogged();
+      this.get();
+    }, error => {
+      console.log(error);
+      alert('System Error');
+    })
+  }
+
+  setUserLogged() {
+    this.userLogged = JSON.parse(localStorage.getItem('loginData'));
+    this.isAuthenticated = (this.userLogged != null);
+  }
+
+  logOff() {
+    this.users = [];
+    this.user= {};
+    this.userLogin = {};
+    this.userLogged= {};
+    this.showList = true;
+    this.isAuthenticated = false;
   }
 
 

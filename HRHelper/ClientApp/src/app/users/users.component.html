@@ -1,43 +1,89 @@
 
-<button class="btn btn-primary" (click)="showList = !showList">{{showList ? 'New User' : 'User List'}}</button>
 
+<div *ngIf="!isAuthenticated">
+  <button class="btn btn-primary" (click)="showList = !showList">{{showList ? 'New User' : 'Login'}}</button>
+  <div *ngIf="showList">
+    <h1>Login</h1>
+    <form>
+      <div class="mb-3">
+        <label for="exampleInputEmail" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="email@email.com" [(ngModel)]="userLogin.email" name="email">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword" aria-describedby="passwordHelp" [(ngModel)]="userLogin.password" name="password">
+      </div>
+      <button type="submit" class="btn btn-success" (click)="authenticate()">Login</button>
+    </form>
+  </div>
 
-<div *ngIf="showList">
-  <h1>Users {{users?.length}}</h1>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{user.id}}</td>
-        <td>{{user.name}}</td>
-        <td>{{user.email}}</td>
-        <td><button class="btn btn-primary" (click)="showUserDetails(user)">Edit</button>
-        <button class="btn btn-danger" (click)="deleteUser(user)">Delete</button></td>
+  <div *ngIf="!showList">
+    <h1>Add User</h1>
+    <form>
+      <div class="mb-3">
+        <label for="exampleInputName" class="form-label">Name</label>
+        <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp" placeholder="Name" [(ngModel)]="user.name" name="name">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@email.com" [(ngModel)]="user.email" name="email">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="save()">Save User</button>
+      <button type="submit" class="btn btn-danger" (click)="get()">Back</button>
+    </form>
+  </div>
 
-      </tr>
-    </tbody>
-  </table>
 </div>
 
-<div *ngIf="!showList">
-  <h1>Add User</h1>
-  <form>
-    <div class="mb-3">
-      <label for="exampleInputName" class="form-label">Name</label>
-      <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp" placeholder="Name" [(ngModel)]="user.name" name="name">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@email.com" [(ngModel)]="user.email" name="email">
-    </div>
-    <button type="submit" class="btn btn-primary" (click)="save()">Save User</button>
-    <button type="submit" class="btn btn-danger" (click)="get()">Back</button>
-  </form>
+
+
+
+<div *ngIf="isAuthenticated">
+  <button class="btn btn-secondary" (click)="logOff()">Log Off</button>
+  <div *ngIf="showList">
+    <h3> Welcome {{userLogged?.user.name}}</h3>
+    <h1>Users {{users?.length}}</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{user.id}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.email}}</td>
+          <td *ngIf="userLogged?.user.id == user.id">
+            <button class="btn btn-primary" (click)="showUserDetails(user)">Edit</button>
+            <button class="btn btn-danger" (click)="deleteUser(user)">Delete</button>
+          </td>
+          <td *ngIf="userLogged?.user.id != user.id">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!showList">
+    <h3>Edit {{user.name}}</h3>
+    <form>
+      <div class="mb-3">
+        <label for="exampleInputName" class="form-label">Name</label>
+        <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp" placeholder="Name" [(ngModel)]="user.name" name="name">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@email.com" [(ngModel)]="user.email" name="email">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="save()">Save User</button>
+      <button type="submit" class="btn btn-danger" (click)="get()">Back</button>
+    </form>
+  </div>
 </div>
+
+
+
